@@ -1,0 +1,288 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-bg-primary: #ffffff;
+    --color-bg-secondary: #f3f4f6;
+    --color-text-primary: #111827;
+    --color-text-secondary: #4b5563;
+    --color-accent: #2D31FA;
+  }
+
+  .dark {
+    --color-bg-primary: #0F172A;
+    --color-bg-secondary: #1E293B;
+    --color-text-primary: #F9FAFB;
+    --color-text-secondary: #D1D5DB;
+    --color-accent: #6366F1;
+  }
+
+  body {
+    @apply bg-bg-primary text-text-primary transition-colors duration-200;
+  }
+}
+
+html, body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+}
+
+* {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.tech-icon {
+  @apply w-12 h-12 rounded-full bg-opacity-20 bg-purple-500 p-2 transition-all hover:scale-110;
+}
+
+@layer components {
+  .container {
+    @apply max-w-7xl mx-auto px-4;
+  }
+}
+
+@layer utilities {
+  .gradient-blur {
+    @apply absolute rounded-full blur-[100px] opacity-50;
+  }
+  
+  .gradient-primary {
+    background: radial-gradient(circle, rgba(124,58,237,0.5) 0%, rgba(60,35,139,0.2) 100%);
+  }
+  
+  .gradient-secondary {
+    background: radial-gradient(circle, rgba(99,102,241,0.5) 0%, rgba(49,46,129,0.2) 100%);
+  }
+
+  .smooth-scroll {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Add smooth transitions for sections */
+section {
+  @apply transition-all duration-500;
+  position: relative;
+  margin-top: -1px; /* Remove gaps between sections */
+  padding: 6rem 0;
+  overflow: visible;
+  z-index: 1;
+  transform-style: preserve-3d; /* ช่วยในการ render */
+  backface-visibility: hidden;
+  background-color: var(--color-bg-primary);
+}
+
+/* Add gradient overlays for smooth transitions */
+section::before,
+section::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 120px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+section::before {
+  top: 0;
+  background: linear-gradient(to bottom, var(--color-bg-primary) 0%, transparent 100%);
+}
+
+section::after {
+  bottom: 0;
+  background: linear-gradient(to top, var(--color-bg-primary) 0%, transparent 100%);
+}
+
+/* Ensure content stays above gradients */
+section > .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Optimize performance for gradient animations */
+.blur-gradient {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Section background transition */
+section {
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* Remove default margin from body */
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(100px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Initial Load Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.animation-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animation-delay-400 {
+  animation-delay: 400ms;
+}
+
+.animation-delay-600 {
+  animation-delay: 600ms;
+}
+
+/* Hover Effects */
+.hover-underline {
+  position: relative;
+}
+
+.hover-underline::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: var(--color-accent);
+  transition: width 0.3s ease;
+}
+
+.hover-underline:hover::after {
+  width: 100%;
+}
+
+.hover-scale {
+  @apply transition-all duration-300;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+.hover-glow {
+  @apply transition-all duration-300;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 20px var(--color-accent);
+}
+
+/* Scroll Animations */
+.fade-up-hidden {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-up-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section-hidden {
+  opacity: 0;
+  transform: translateY(30px); /* ลดระยะการเลื่อนลง */
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); /* ปรับ timing function */
+  will-change: opacity, transform; /* เพิ่มประสิทธิภาพการ render */
+  backface-visibility: hidden; /* ลดปัญหา flickering */
+}
+
+.section-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* เพิ่ม styles สำหรับ section containers */
+.gradient-overlay {
+  position: absolute;
+  inset: -50px 0;
+  background: var(--color-bg-primary);
+  z-index: 0;
+}
+
+.section-hidden {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+}
+
+.section-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Glass Effect */
+.glass-effect {
+  @apply backdrop-blur-md bg-white/10 dark:bg-black/10;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Hero Section Transitions */
+.hero-content {
+  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
